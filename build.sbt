@@ -11,7 +11,7 @@ val scalatestVersion = "3.1.0"
 lazy val `monster-scio-utils` = project
   .in(file("."))
   .settings(publish / skip := true)
-  .aggregate(`msg-utils`, `scio-utils`)
+  .aggregate(`msg-utils`, `scio-utils`, `scio-test-utils`)
 
 lazy val `msg-utils` = project
   .in(file("utils/msg"))
@@ -45,5 +45,17 @@ lazy val `scio-utils` = project
       "org.scalatest" %% "scalatest" % scalatestVersion
     ).map(_ % Test),
     Test / scalacOptions += "-language:higherKinds"
+  )
+
+lazy val `scio-test-utils` = project
+  .in(file("utils/scio-test"))
+  .enablePlugins(MonsterLibraryPlugin)
+  .dependsOn(`scio-utils`)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.github.pathikrit" %% "better-files" % betterFilesVersion,
+      "com.spotify" %% "scio-test" % scioVersion,
+      "org.scalatest" %% "scalatest" % scalatestVersion
+    )
   )
 
