@@ -12,10 +12,7 @@ import upack.Msg
   * Base class for test suites that assert on the output of
   * a single run of a scio pipeline.
   */
-abstract class PipelineBuilderSpec[Args]
-    extends PipelineSpec
-    with Matchers
-    with BeforeAndAfterAll {
+abstract class PipelineBuilderSpec[Args] extends PipelineSpec with Matchers with BeforeAndAfterAll {
   def testArgs: Args
   def builder: PipelineBuilder[Args]
 

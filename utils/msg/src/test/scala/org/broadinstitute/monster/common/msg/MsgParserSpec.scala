@@ -18,11 +18,10 @@ class MsgParserSpec extends AnyFlatSpec with Matchers {
     parserFor[String].parse(Str("a value")) shouldBe "a value"
   }
   it should "fail to parse strings from non-string messages" in {
-    List(Int32(1), Int64(1L), Float32(1f), Float64(1d), Bool(true), Arr(), Obj()).foreach {
-      msg =>
-        a[ConversionMismatchException] shouldBe thrownBy {
-          parserFor[String].parse(msg)
-        }
+    List(Int32(1), Int64(1L), Float32(1f), Float64(1d), Bool(true), Arr(), Obj()).foreach { msg =>
+      a[ConversionMismatchException] shouldBe thrownBy {
+        parserFor[String].parse(msg)
+      }
     }
   }
 
@@ -146,11 +145,10 @@ class MsgParserSpec extends AnyFlatSpec with Matchers {
     }
   }
   it should "fail to parse dates from other messages" in {
-    List(Int32(1), Int64(1L), Float32(1f), Float64(1d), Bool(true), Arr(), Obj()).foreach {
-      msg =>
-        a[ConversionMismatchException] shouldBe thrownBy {
-          parserFor[LocalDate].parse(msg)
-        }
+    List(Int32(1), Int64(1L), Float32(1f), Float64(1d), Bool(true), Arr(), Obj()).foreach { msg =>
+      a[ConversionMismatchException] shouldBe thrownBy {
+        parserFor[LocalDate].parse(msg)
+      }
     }
   }
 
@@ -179,11 +177,10 @@ class MsgParserSpec extends AnyFlatSpec with Matchers {
     }
   }
   it should "fail to parse timestamps from other messages" in {
-    List(Int32(1), Int64(1L), Float32(1f), Float64(1d), Bool(true), Arr(), Obj()).foreach {
-      msg =>
-        a[ConversionMismatchException] shouldBe thrownBy {
-          parserFor[LocalDate].parse(msg)
-        }
+    List(Int32(1), Int64(1L), Float32(1f), Float64(1d), Bool(true), Arr(), Obj()).foreach { msg =>
+      a[ConversionMismatchException] shouldBe thrownBy {
+        parserFor[LocalDate].parse(msg)
+      }
     }
   }
 
