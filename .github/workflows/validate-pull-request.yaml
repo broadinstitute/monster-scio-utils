@@ -4,7 +4,7 @@ on:
     branches:
       - master
 jobs:
-  main:
+  pr-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

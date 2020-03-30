@@ -1,12 +1,10 @@
-name: Build and Publish
+name: Master Validation and Release
 on:
   push:
     branches:
       - master
-    tags:
-      - v[0-9]+.[0-9]+.[0-9]+
 jobs:
-  main:
+  master-ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,8 +20,8 @@ jobs:
       - name: Aggregate coverage reports
         run: sbt coverageAggregate
       - uses: codecov/codecov-action@v1
-        with:
-          fail_ci_if_error: true
+      - name: Fetch tag history
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - name: Publish
         env:
           ARTIFACTORY_USERNAME: ${{ secrets.ArtifactoryUsername }}
