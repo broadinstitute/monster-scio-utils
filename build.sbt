@@ -3,7 +3,7 @@ val betterFilesVersion = "3.8.0"
 val circeVersion = "0.13.0"
 val circeDerivationVersion = "0.13.0-M4"
 val logbackVersion = "1.2.3"
-val scioVersion = "0.8.3"
+val scioVersion = "0.9.0"
 val uPickleVersion = "1.0.0"
 
 val scalatestVersion = "3.1.1"
