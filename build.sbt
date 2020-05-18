@@ -1,4 +1,4 @@
-val beamVersion = "2.19.0"
+val beamVersion = "2.20.0"
 val betterFilesVersion = "3.8.0"
 val circeVersion = "0.13.0"
 val circeDerivationVersion = "0.13.0-M4"
