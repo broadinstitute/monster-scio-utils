@@ -37,8 +37,13 @@ class ScioAppSpec extends AnyFlatSpec with Matchers with BeforeAndAfterEach {
       app.main(Array("--value", "-1"))
     }
   }
+
+  it should "properly parse args as camelCase" in {
+    app.main(Array("--value", "10", "--camelCaseValue", "foo"))
+    tmpOut.list.toArray.head.contentAsString shouldBe "10\n"
+  }
 }
 
 object ScioAppSpec {
-  case class Args(value: Int)
+  case class Args(value: Int, camelCaseValue: Option[String])
 }
