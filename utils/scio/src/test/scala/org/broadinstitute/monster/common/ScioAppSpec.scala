@@ -1,11 +1,14 @@
 package org.broadinstitute.monster.common
 
+import java.time.{LocalDate, LocalTime, OffsetDateTime, ZoneOffset}
+
 import better.files.File
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import upack._
 
-class ScioAppSpec extends AnyFlatSpec with Matchers with BeforeAndAfterEach {
+class ScioAppSpec extends AnyFlatSpec with Matchers with BeforeAndAfterEach with PipelineCoders {
   val tmpOut = File.newTemporaryDirectory()
 
   val app = new ScioApp[ScioAppSpec.Args] {
@@ -15,8 +18,10 @@ class ScioAppSpec extends AnyFlatSpec with Matchers with BeforeAndAfterEach {
         .parallelize(List(args.value))
         .map { i =>
           if (i < 0) throw new RuntimeException("AHH!")
-          i
+          val date = LocalDate.of(2020, i, 1)
+          (Int32(i): Msg, date, OffsetDateTime.of(date, LocalTime.of(0, 0), ZoneOffset.UTC))
         }
+        .map(_._1.int32)
         .saveAsTextFile(tmpOut.pathAsString, numShards = 1, suffix = ".value")
       ()
     }

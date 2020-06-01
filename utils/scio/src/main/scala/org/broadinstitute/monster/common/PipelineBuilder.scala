@@ -9,7 +9,7 @@ import com.spotify.scio.ScioContext
   * @tparam Args container for command-line args powering
   *              pipeline construction
   */
-trait PipelineBuilder[Args] {
+trait PipelineBuilder[Args] extends PipelineCoders {
   /**
     * Use a set of command-line args to construct a scio
     * pipeline within a pipeline context.

@@ -219,4 +219,23 @@ class MsgParserSpec extends AnyFlatSpec with Matchers {
       parserFor[Array[String]].parse(Obj())
     }
   }
+
+  it should "parse lists from array messages" in {
+    parserFor[List[String]].parse(Arr(Str("foo"), Str("bar"), Str("baz"))) shouldBe
+      List("foo", "bar", "baz")
+
+    parserFor[List[Long]].parse(Arr(Int64(1L), UInt64(-2L), Int32(5))) shouldBe
+      List(1L, -2L, 5L)
+
+    parserFor[List[Boolean]].parse(Arr()) shouldBe List.empty[Boolean]
+  }
+  it should "parse lists from singleton messages" in {
+    parserFor[List[Double]].parse(Float64(9.8765d)) shouldBe List(9.8765d)
+    parserFor[List[Boolean]].parse(Bool(false)) shouldBe List(false)
+  }
+  it should "fail to parse lists from objects" in {
+    a[ConversionMismatchException] shouldBe thrownBy {
+      parserFor[List[String]].parse(Obj())
+    }
+  }
 }

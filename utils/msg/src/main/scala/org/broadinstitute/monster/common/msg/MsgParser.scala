@@ -128,4 +128,7 @@ object MsgParser {
 
   implicit def arrayParser[V: MsgParser: ClassTag]: MsgParser[Array[V]] =
     arrBufParser[V].parse(_).toArray
+
+  implicit def listParser[V: MsgParser]: MsgParser[List[V]] =
+    arrBufParser[V].parse(_).toList
 }
